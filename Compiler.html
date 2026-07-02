@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Codeforces Round (Div. 2) Experience</title>
+    <style>
+        :root {
+            color-scheme: light;
+            --bg: #eef5f6;
+            --surface: rgba(255, 255, 255, 0.96);
+            --surface-strong: #ffffff;
+            --text: #1f2937;
+            --muted: #4b5563;
+            --accent: #0f766e;
+            --accent-soft: #d8f3ef;
+            --border: rgba(148, 163, 184, 0.25);
+            --radius: 26px;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.7;
+            color: var(--text);
+            background: linear-gradient(180deg, #e6f1f2 0%, #d6e8eb 45%, #f8fbfb 100%);
+        }
+
+        .page {
+            width: min(1200px, 100%);
+            margin: 0 auto;
+            padding: 24px 18px 48px;
+        }
+
+        .card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            box-shadow: 0 30px 80px rgba(15, 23, 42, 0.1);
+            overflow: hidden;
+        }
+
+        .hero {
+            display: grid;
+            gap: 24px;
+            padding: 40px 34px 32px;
+        }
+
+        .hero-title {
+            margin: 0;
+            font-size: clamp(2.5rem, 4vw, 4rem);
+            letter-spacing: -0.04em;
+        }
+
+        .hero-subtitle {
+            margin: 0;
+            max-width: 760px;
+            font-size: 1.15rem;
+            color: var(--muted);
+        }
+
+        .hero p {
+            margin: 0;
+        }
+
+        .hero-visual {
+            width: 100%;
+            border-radius: 24px;
+            overflow: hidden;
+        }
+
+        .hero-visual img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        section {
+            padding: 44px 34px;
+            border-top: 1px solid var(--border);
+        }
+
+        section:first-of-type {
+            border-top: none;
+        }
+
+        section h2 {
+            margin: 0 0 20px;
+            font-size: clamp(2rem, 3vw, 2.7rem);
+            text-align: center;
+        }
+
+        section p {
+            margin: 0 auto;
+            max-width: 840px;
+            font-size: 1.05rem;
+            color: var(--muted);
+        }
+
+        .visual-grid {
+            display: grid;
+            gap: 26px;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            margin-top: 32px;
+        }
+
+        .visual-grid figure {
+            border-radius: 24px;
+            overflow: hidden;
+            background: var(--surface-strong);
+            border: 1px solid var(--border);
+        }
+
+        .visual-grid img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .stats {
+            display: grid;
+            gap: 18px;
+            grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+            margin: 28px auto 0;
+            max-width: 900px;
+        }
+
+        .stat-card {
+            padding: 24px;
+            background: var(--accent-soft);
+            border-radius: 20px;
+            border: 1px solid rgba(15, 118, 110, 0.12);
+        }
+
+        .stat-card h3 {
+            margin: 0 0 10px;
+            font-size: 1.15rem;
+            color: var(--accent);
+        }
+
+        .stat-card p {
+            margin: 0;
+            color: var(--text);
+            font-size: 1rem;
+        }
+
+        .footer {
+            padding: 28px 34px 36px;
+            text-align: center;
+            color: var(--muted);
+        }
+
+        .footer strong {
+            color: var(--text);
+        }
+
+        @media (max-width: 720px) {
+            .hero {
+                padding: 28px 20px 24px;
+            }
+
+            section {
+                padding: 32px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="page">
+        <article class="card">
+            <header class="hero">
+                <div>
+                    <h1 class="hero-title">🚀 Codeforces Round (Div. 2) Experience</h1>
+                    <p class="hero-subtitle">A polished showcase of contest intensity, fast thinking, and the lessons that make every round stronger.</p>
+                </div>
+                <figure class="hero-visual">
+                    <img src="./Screenshot 2026-05-10 110714.png" alt="Codeforces contest dashboard">
+                </figure>
+            </header>
+
+            <section>
+                <h2>Competitive problem solving in action</h2>
+                <p>Every Codeforces Round feels like entering a battlefield of logic and speed. Thousands of programmers from around the world compete together, trying to solve problems as quickly and accurately as possible. The timer starts, submissions begin flying, and every second becomes important.</p>
+            </section>
+
+            <section>
+                <h2>💡 Why Div. 2 is amazing</h2>
+                <div class="visual-grid">
+                    <figure>
+                        <img src="./Screenshot 2026-05-10 113138.png" alt="Contest problem solving">
+                    </figure>
+                    <figure>
+                        <img src="./Screenshot 2026-05-10 114012.png" alt="Competitive programming lessons">
+                    </figure>
+                </div>
+                <p>Div. 2 contests are one of the best ways to improve problem-solving skills. They teach important topics like greedy algorithms, binary search, mathematics, implementation, and dynamic programming. Even one solved problem can teach a completely new idea.</p>
+            </section>
+
+            <section>
+                <h2>🧠 Lessons learned</h2>
+                <p>During contests, staying calm is extremely important. Sometimes the easiest problem becomes difficult because of stress. Reading the statement carefully, testing edge cases, and debugging step by step are the real keys to success.</p>
+                <div class="stats">
+                    <div class="stat-card">
+                        <h3>Focus under pressure</h3>
+                        <p>Strong competitors keep a clear head and spot mistakes before they cost valuable time.</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Plan before coding</h3>
+                        <p>Breaking problems into smaller steps helps recover quickly and solve more efficiently.</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Learn from every round</h3>
+                        <p>Ratings are useful, but improvement comes from new techniques and consistent practice.</p>
+                    </div>
+                </div>
+            </section>
+
+            <footer class="footer">
+                <p><strong>Happy coding</strong> and good luck in future contests!</p>
+            </footer>
+        </article>
+    </div>
+</body>
+</html>
