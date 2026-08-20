@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio | Software & AI Engineer</title>
+    <style>
+        /* --- RESET & VARIABLES --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        :root {
+            --bg-color: #0a0a16;
+            --text-color: #ffffff;
+            --primary-glow: #00f2fe;
+            --secondary-glow: #4facfe;
+            --card-bg: rgba(255, 255, 255, 0.03);
+            --card-border: rgba(255, 255, 255, 0.08);
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        /* --- BACKGROUND CANVAS --- */
+        #particle-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        /* --- NAVIGATION --- */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 20px 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 10;
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--card-border);
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            letter-spacing: 2px;
+            background: linear-gradient(45deg, var(--primary-glow), var(--secondary-glow));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        nav a {
+            color: #a0a0c0;
+            text-decoration: none;
+            margin-left: 30px;
+            font-size: 0.9rem;
+            transition: color 0.3s, text-shadow 0.3s;
+        }
+
+        nav a:hover {
+            color: var(--primary-glow);
+            text-shadow: 0 0 10px var(--primary-glow);
+        }
+
+        /* --- HERO SECTION --- */
+        .hero {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 120px 20px 40px 20px;
+            z-index: 2;
+        }
+
+        .profile-container {
+            position: relative;
+            width: 300px;
+            height: 300px;
+            margin-bottom: 30px;
+            border-radius: 50%;
+            padding: 5px;
+            background: linear-gradient(45deg, var(--primary-glow), var(--secondary-glow));
+            box-shadow: 0 0 25px rgba(0, 242, 254, 0.4);
+            opacity: 0;
+            transform: scale(0.8);
+            animation: fadeInScale 1s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+        }
+
+        .profile-pic {
+            width: 100%;
+            height: 100%;
+            object-fit:cover;
+            border-radius: 50%;
+            background-color: #151525;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            line-height: 1.2;
+            margin-bottom: 20px;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 1s cubic-bezier(0.2, 0.8, 0.2, 1) 0.2s forwards;
+        }
+
+        .hero h1 span {
+            background: linear-gradient(90deg, var(--primary-glow), var(--secondary-glow));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: #8a8aab;
+            max-width: 650px;
+            margin-bottom: 40px;
+            line-height: 1.6;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 1s cubic-bezier(0.2, 0.8, 0.2, 1) 0.4s forwards;
+        }
+
+        .cta-btn {
+            position: relative;
+            padding: 15px 35px;
+            font-size: 1rem;
+            font-weight: 600;
+            color: #fff;
+            background: transparent;
+            border: 2px solid var(--primary-glow);
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 15px rgba(0, 242, 254, 0.2);
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 1s cubic-bezier(0.2, 0.8, 0.2, 1) 0.6s forwards;
+        }
+
+        .cta-btn:hover {
+            background: linear-gradient(45deg, var(--primary-glow), var(--secondary-glow));
+            box-shadow: 0 0 30px rgba(0, 242, 254, 0.6);
+            border-color: transparent;
+            transform: scale(1.05);
+        }
+
+        /* --- SKILLS SECTION --- */
+        .section-title {
+            text-align: center;
+            font-size: 2rem;
+            margin-top: 60px;
+            margin-bottom: 20px;
+            z-index: 2;
+            position: relative;
+            background: linear-gradient(90deg, #fff, #8a8aab);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .features {
+            position: relative;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px 20px 100px 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            z-index: 2;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 20px;
+            padding: 40px 30px;
+            backdrop-filter: blur(20px);
+            transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1), border-color 0.3s;
+            transform-style: preserve-3d;
+            perspective: 1000px;
+        }
+
+        .card:hover {
+            border-color: var(--primary-glow);
+        }
+
+        .card-icon {
+            font-size: 2.5rem;
+            margin-bottom: 25px;
+            display: inline-block;
+        }
+
+        .card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: #fff;
+        }
+
+        .tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .tag {
+            background: rgba(0, 242, 254, 0.1);
+            border: 1px solid rgba(0, 242, 254, 0.3);
+            color: var(--primary-glow);
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        .tag.alt {
+            background: rgba(79, 172, 254, 0.1);
+            border: 1px solid rgba(79, 172, 254, 0.3);
+            color: var(--secondary-glow);
+        }
+
+        /* --- ANIMATIONS --- */
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInScale {
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        @media (max-width: 768px) {
+            header { padding: 20px; }
+            nav { display: none; }
+            .hero h1 { font-size: 2.5rem; }
+            .hero p { font-size: 1rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <canvas id="particle-canvas"></canvas>
+
+    <header>
+        <div class="logo">PERSONAL PORTFOLIO</div>
+        <nav>
+            <a href="#">About</a>
+            <a href="#">Skills</a>
+            <a href="#">Projects</a>
+            <a href="#">Contact</a>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="profile-container">
+                <img src="D:\WALLPAPERS\Profile Wallpapers\12384967724570988.jpg" title="Folow me!!!" alt="Profile Picture" class="profile-pic" title="FOLLOW ME">
+            </div>
+            <h1 stlye="font-size:x-large;"><span>BROCODE001</span></h1>
+            <p>Driven by a passion for developing intelligent systems, processing computational logic, and building scalable software architectures with interactive front-end environments.</p>
+            <button class="cta-btn" onclick="window.location.href='mailto:your-email@example.com'">Get In Touch</button>
+        </section>
+
+        <h2 class="section-title">Technical Skills</h2>
+        <section class="features">
+            <div class="card" data-tilt>
+                <div class="card-icon">🧠</div>
+                <h3>Software Creator</h3>
+                <p style="color: #8a8aab; font-size: 0.95rem; margin-bottom: 20px; line-height: 1.5;">
+                    Utilizing high-performance compilation tools and versatile object-oriented environments to design underlying algorithms and artificial intelligence logic.
+                </p>
+                <div class="tags">
+                    <span class="tag">C++</span>
+                    <span class="tag">Python</span>
+                </div>
+            </div>
+
+            <div class="card" data-tilt>
+                <div class="card-icon">🌐</div>
+                <h3>Web Architecture</h3>
+                <p style="color: #8a8aab; font-size: 0.95rem; margin-bottom: 20px; line-height: 1.5;">
+                    Building fluid user interfaces, structural data sheets, and complex functional mechanics for responsive, modern web environments.
+                </p>
+                <div class="tags">
+                    <span class="tag alt">HTML</span>
+                    <span class="tag alt">CSS</span>
+                    <span class="tag alt">JavaScript</span>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        /* --- BACKGROUND PARTICLE SYSTEM --- */
+        const canvas = document.getElementById('particle-canvas');
+        const ctx = canvas.getContext('2d');
+
+        let width = canvas.width = window.innerWidth;
+        let height = canvas.height = window.innerHeight;
+
+        const particles = [];
+        const particleCount = 60;
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * width;
+                this.y = Math.random() * height;
+                this.size = Math.random() * 2 + 1;
+                this.speedX = (Math.random() - 0.5) * 0.4;
+                this.speedY = (Math.random() - 0.5) * 0.4;
+                this.alpha = Math.random() * 0.5 + 0.2;
+            }
+
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+
+                if (this.x < 0 || this.x > width) this.speedX *= -1;
+                if (this.y < 0 || this.y > height) this.speedY *= -1;
+            }
+
+            draw() {
+                ctx.fillStyle = `rgba(0, 242, 254, ${this.alpha})`;
+                ctx.shadowBlur = 10;
+                ctx.shadowColor = '#00f2fe';
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+
+        function init() {
+            for (let i = 0; i < particleCount; i++) {
+                particles.push(new Particle());
+            }
+        }
+
+        function animateParticles() {
+            ctx.clearRect(0, 0, width, height);
+            ctx.shadowBlur = 0;
+            
+            particles.forEach(p => {
+                p.update();
+                p.draw();
+            });
+            requestAnimationFrame(animateParticles);
+        }
+
+        window.addEventListener('resize', () => {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+        });
+
+        init();
+        animateParticles();
+
+        /* --- 3D INTERACTIVE TILT ANIMATION --- */
+        const cards = document.querySelectorAll('.card');
+
+        cards.forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left - (rect.width / 2);
+                const y = e.clientY - rect.top - (rect.height / 2);
+                
+                const factor = 12; 
+                const rotateX = -(y / (rect.height / 2)) * factor;
+                const rotateY = (x / (rect.width / 2)) * factor;
+
+                card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-5px)`;
+                card.style.background = `radial-gradient(circle at ${e.clientX - rect.left}px ${e.clientY - rect.top}px, rgba(0,242,254,0.06) 0%, rgba(255,255,255,0.03) 70%)`;
+            });
+
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) translateY(0)`;
+                card.style.background = 'var(--card-bg)';
+            });
+        });
+    </script>
+</body>
+</html>

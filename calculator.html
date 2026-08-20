@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JavaScript Calculator</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: sans-serif; }
+    body { background: #0f172a;padding:60px; }
+    .calculator { background: #1e293b; padding: 20px; border-radius: 16px; width: 500px;height:500px; }
+    .display-screen { background: #0f172a; border-radius: 8px; padding: 15px; margin-bottom: 15px; text-align: right;height:100px; }
+    .previous-operand { color: #94a3b8; font-size: 0.9rem; min-height: 18px; }
+    .current-operand { color: #fff; font-size: 2rem; font-weight: bold; min-height: 40px; }
+    .buttons-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+    button { height: 50px; border: none; border-radius: 8px; font-size: 1.2rem; cursor: pointer; background: #334155; color: #fff; }
+    button:hover { background: #475569; }
+    .btn-action { background: #ef4444; }
+    .btn-operator { background: #3b82f6; }
+    .btn-equals { background: #10b981; grid-column: span 2; }
+    .span-two { grid-column: span 2; }
+  </style>
+</head>
+<body>
+<div class="container">
+<h1 style="font-weight:bolder;font-size:xx-large;font-family:Georgia, 'Times New Roman', Times, serif;color:white;text-align:center;">MODERN STANDART CALCULATOR</h1>
+<br><br><br><br><br><br>
+<center>
+<div class="calculator">
+    <div class="display-screen">
+      <div id="previousOperand" class="previous-operand"></div>
+      <div id="currentOperand" class="current-operand">0</div>
+    </div>
+    <br><br><br>
+
+    <div class="buttons-grid">
+      <button class="btn-action span-two" onclick="calculator.clear()">AC</button>
+      <button class="btn-action" onclick="calculator.delete()">DEL</button>
+      <button class="btn-operator" onclick="calculator.chooseOperation('÷')">÷</button>
+      <button onclick="calculator.appendNumber('7')">7</button>
+      <button onclick="calculator.appendNumber('8')">8</button>
+      <button onclick="calculator.appendNumber('9')">9</button>
+      <button class="btn-operator" onclick="calculator.chooseOperation('×')">×</button>
+      <button onclick="calculator.appendNumber('4')">4</button>
+      <button onclick="calculator.appendNumber('5')">5</button>
+      <button onclick="calculator.appendNumber('6')">6</button>
+      <button class="btn-operator" onclick="calculator.chooseOperation('-')">-</button>
+      <button onclick="calculator.appendNumber('1')">1</button>
+      <button onclick="calculator.appendNumber('2')">2</button>
+      <button onclick="calculator.appendNumber('3')">3</button>
+      <button class="btn-operator" onclick="calculator.chooseOperation('+')">+</button>
+      <button onclick="calculator.appendNumber('0')">0</button>
+      <button onclick="calculator.appendNumber('.')">.</button>
+      <button class="btn-equals" onclick="calculator.compute()">=</button>
+    </div>
+  </div>
+</center>
+</div>
+
+  
+
+  <script>
+    class Calculator {
+      constructor(previousOperandElement, currentOperandElement) {
+        this.previousOperandElement = previousOperandElement;
+        this.currentOperandElement = currentOperandElement;
+        this.clear();
+      }
+
+      clear() {
+        this.currentOperand = '0';
+        this.previousOperand = '';
+        this.operation = undefined;
+        this.updateDisplay();
+      }
+
+      delete() {
+        if (this.currentOperand === '0') return;
+        this.currentOperand = this.currentOperand.length === 1 ? '0' : this.currentOperand.slice(0, -1);
+        this.updateDisplay();
+      }
+
+      appendNumber(number) {
+        if (number === '.' && this.currentOperand.includes('.')) return;
+        this.currentOperand = this.currentOperand === '0' && number !== '.' ? number : this.currentOperand + number;
+        this.updateDisplay();
+      }
+
+      chooseOperation(operation) {
+        if (this.currentOperand === '') return;
+        if (this.previousOperand !== '') this.compute();
+        this.operation = operation;
+        this.previousOperand = this.currentOperand;
+        this.currentOperand = '';
+        this.updateDisplay();
+      }
+
+      compute() {
+        let computation;
+        const prev = parseFloat(this.previousOperand);
+        const current = parseFloat(this.currentOperand);
+        if (isNaN(prev) || isNaN(current)) return;
+
+        switch (this.operation) {
+          case '+': computation = prev + current; break;
+          case '-': computation = prev - current; break;
+          case '×': computation = prev * current; break;
+          case '÷': computation = current === 0 ? 'Error' : prev / current; break;
+          default: return;
+        }
+
+        this.currentOperand = computation.toString();
+        this.operation = undefined;
+        this.previousOperand = '';
+        this.updateDisplay();
+      }
+
+      updateDisplay() {
+        this.currentOperandElement.innerText = this.currentOperand;
+        this.previousOperandElement.innerText = this.operation != null ? `${this.previousOperand} ${this.operation}` : '';
+      }
+    }
+
+    // Instantiating the calculator in the global scope
+    const previousOperandElement = document.getElementById('previousOperand');
+    const currentOperandElement = document.getElementById('currentOperand');
+    window.calculator = new Calculator(previousOperandElement, currentOperandElement);
+  </script>
+</body>
+</html>

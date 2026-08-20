@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+</head>
+<style>
+.Sky{
+
+    width:1800px;
+    height:60%;
+    position:fixed;
+    left:-10px;
+    top:0px;
+}
+.road{
+   
+    width:2000px;
+    height:40%;
+    position:fixed;
+    left:-10px;
+    top:60%;
+    background-color:rgb(74, 72, 72);
+}
+
+hr{
+
+    position:fixed;
+    top:76%;
+    border:8px dashed white;
+    width:100%;
+
+}
+.obj1{
+
+    width:200px;
+    position:fixed;
+    top:66%;
+    left:2%;
+    animation-name:drive;
+    animation-duration:3s;
+    animation-fill-mode:both;
+    animation-iteration-count:infinite;
+    animation-timeline:10s;
+
+}
+
+.obj2{
+
+    width:200px;
+    position:fixed;
+    top:80%;
+    left:2%;
+    animation-name:drive;
+    animation-duration:4s;
+    animation-fill-mode:both;
+    animation-iteration-count:infinite;
+}
+@keyframes drive{
+
+    from{transform:translateX(-200px)}
+    to{transform:translateX(1700px)}
+}
+</style>
+<body>
+<center>
+<img class="Sky" src="D:\WALLPAPERS\4K Wallpapers by Howdy & Cat of Bar\wallhaven-ox19m9.jpg"></center>
+
+<center><div class="road">
+
+<img src="C:\Users\Admin\OneDrive\Рисунки\Screenshots\Screenshot 2026-08-19 161331.png" class="obj1">
+
+<img src="C:\Users\Admin\OneDrive\Рисунки\Screenshots\Screenshot 2026-08-19 161407.png" class="obj2">
+
+<hr>
+</div></center>
+</body>
+</html>
